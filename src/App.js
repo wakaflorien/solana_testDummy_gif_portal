@@ -7,6 +7,8 @@ import './App.css';
 import idl from './idl.json'
 import kp from './keypair.json'
 
+import { Icon } from '@iconify/react';
+
 // Constants
 const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -17,6 +19,9 @@ const { SystemProgram, Keypair } = web3;
 const arr = Object.values(kp._keypair.secretKey)
 const secret = new Uint8Array(arr);
 const baseAccount = web3.Keypair.fromSecretKey(secret);
+
+console.log("baseAccount", baseAccount.publicKey.toString())
+const userAddress = baseAccount.publicKey.toString()
 
 const programID = new PublicKey(idl.metadata.address)
 
@@ -174,13 +179,20 @@ const App = () => {
               handleSubmit()
             }}
           >
-            <input type="text" placeholder="Enter gif link!" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-            <button type="submit" className="cta-button submit-gif-button">Submit</button>
+            <input type="text" className="w-1/2 px-10 mr-2 my-5 py-3 border border-primary-200 rounded-xl" placeholder="Enter gif link!" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <button type="submit" className="bg-primary-200 text-white text-xl px-10 py-2 rounded-xl">Submit</button>
           </form>
           <div className="flex flex-wrap items-center justify-center">
             {gifList.map((gif, index) => (
-              <div className="mx-10 my-5" key={index}>
-                <img src={gif.gifLink} alt={gif} className="w-96 h-72 rounded-md shadow-xl hover:bg-" />
+              <div className="relative mx-10 my-5 imgClass" key={index}>
+                <div className="transition ease-in-out delay-150 absolute bottom-20 text-primary-200 font-bold px-2 opacity-0 duration-75 addClass">
+                  <span className="text-2xl">Posted by : </span>
+                  <h3 className="text-sm ">{userAddress}</h3>
+                </div>
+                <img src={gif.gifLink} alt={gif} className="w-96 h-72 rounded-md shadow-xl hover:cursor-pointer hover:opacity-30" />
+                <div className="flex justify-start mt-5">
+                  <div className="flex flex-row text-xl font-bold text-primary-200"><Icon icon="icon-park-outline:like" color="#202735" height="24" /><Icon icon="icon-park-solid:like" color="#202735" height="24" />181</div>
+                </div>
               </div>
             ))}
           </div>
@@ -208,14 +220,14 @@ const App = () => {
     <div className="App">
       <div className={walletAddress? 'authed-container' : 'container'}>
         <div className="header-container">
-          <p className="text-3xl font-extrabold my-2 text-primary-200">Stickers GIF Portal</p>
-          <h1 className="text-3xl font-bold my-4 text-primary-100">
+          <p className="text-3xl font-extrabold my-2 text-primary-200">Dummy Test Stickers Portal ✨</p>
+          {/* <h1 className="text-3xl font-bold my-4 text-primary-100">
             View your GIF collection in the metaverse ✨
-         </h1>
+         </h1> */}
           {!walletAddress && renderNotConnectedContainer()}
           {walletAddress && renderConnectedContainer()} 
         </div>
-        <div className="footer-container">
+        {/* <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"
@@ -223,7 +235,7 @@ const App = () => {
             target="_blank"
             rel="noreferrer"
           >{`built on @${TWITTER_HANDLE}`}</a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

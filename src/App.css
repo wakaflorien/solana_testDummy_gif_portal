@@ -112,7 +112,7 @@
   object-fit: cover;
 } */
 
-.connected-container input[type='text'] {
+/* .connected-container input[type='text'] {
   display: inline-block;
   color: white;
   padding: 10px;
@@ -124,8 +124,12 @@
   border: none;
   border-radius: 10px;
   margin: 50px auto;
-}
+} */
 
 .connected-container button {
   height: 50px;
+}
+
+.imgClass:hover .addClass {
+  opacity: 1;
 }

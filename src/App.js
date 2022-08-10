@@ -20,8 +20,8 @@ const arr = Object.values(kp._keypair.secretKey)
 const secret = new Uint8Array(arr);
 const baseAccount = web3.Keypair.fromSecretKey(secret);
 
-console.log("baseAccount", baseAccount.publicKey.toString())
-const userAddress = baseAccount.publicKey.toString()
+// console.log("baseAccount", baseAccount.publicKey.toString())
+// const userAddress = baseAccount.publicKey.toString()
 
 const programID = new PublicKey(idl.metadata.address)
 
@@ -33,12 +33,7 @@ const opts = {
 
 
 
-const TEST_GIFS = [
-  'https://media.giphy.com/media/l1J9tb9W5YNEOPdgA/giphy.gif',
-  'https://media.giphy.com/media/l1J9wFU6GJm8fsYco/giphy.gif',
-  'https://media.giphy.com/media/3o7aCU1S05Gr77MG2c/giphy.gif',
-  'https://media.giphy.com/media/l1J9AkPa5OChzycCs/giphy.gif',
-]
+const TEST_GIFS = []
 
 const App = () => {
   const [walletAddress, setWalletAddress] = useState(null)
@@ -187,11 +182,11 @@ const App = () => {
               <div className="relative mx-10 my-5 imgClass" key={index}>
                 <div className="transition ease-in-out delay-150 absolute bottom-20 text-primary-200 font-bold px-2 opacity-0 duration-75 addClass">
                   <span className="text-2xl">Posted by : </span>
-                  <h3 className="text-sm ">{userAddress}</h3>
+                  <h3 className="text-sm ">{gif.userAddress.toString()}</h3>
                 </div>
                 <img src={gif.gifLink} alt={gif} className="w-96 h-72 rounded-md shadow-xl hover:cursor-pointer hover:opacity-30" />
                 <div className="flex justify-start mt-5">
-                  <div className="flex flex-row text-xl font-bold text-primary-200"><Icon icon="icon-park-outline:like" color="#202735" height="24" /><Icon icon="icon-park-solid:like" color="#202735" height="24" />181</div>
+                  <div className="flex flex-row text-xl font-bold text-primary-200"><Icon icon="icon-park-outline:like" color="#202735" height="24" /><Icon icon="icon-park-solid:like" color="#202735" height="24"  className="mx-2"/>0 Votes</div>
                 </div>
               </div>
             ))}
